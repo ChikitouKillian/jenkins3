@@ -1,0 +1,19 @@
+pipeline {
+    agent any
+
+    environment {
+        SONARQUBE_SERVER = 'SonarQubeServer'
+        SONAR_TOKEN = credentials('sonar-token-id')
+    }
+
+    stages {
+        stage('Analyse SonarQube') {
+            steps {
+                checkout scm
+                withSonarQubeEnv(SONARQUBE_SERVER) {
+                    sh 'mvn clean sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                }
+            }
+        }
+    }
+}
