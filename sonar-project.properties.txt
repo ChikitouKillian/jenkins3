@@ -2,3 +2,4 @@ sonar.projectKey=mon-projet-demo
 sonar.projectName=Mon Projet Démo
 sonar.projectVersion=1.0
 sonar.sources=.
+sonar.exclusions=**/.git/**
