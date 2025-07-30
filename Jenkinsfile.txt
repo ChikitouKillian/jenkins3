@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        SONARQUBE_SERVER = 'SonarQube'
-        SONAR_TOKEN = credentials('sonar-token-jenkin')
+        SONARQUBE_SERVER = 'SonarQube'          // Nom du serveur SonarQube configuré dans Jenkins
+        SONAR_TOKEN = credentials('sonar-token-jenkin')  // Token Sonar stocké dans Jenkins Credentials
     }
 
     stages {
@@ -11,7 +11,8 @@ pipeline {
             steps {
                 checkout scm
                 withSonarQubeEnv(SONARQUBE_SERVER) {
-                    sh 'mvn clean sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                    // Commande Windows pour lancer SonarScanner
+                    bat 'sonar-scanner -Dsonar.login=%SONAR_TOKEN%'
                 }
             }
         }
